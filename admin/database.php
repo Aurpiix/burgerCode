@@ -3,9 +3,9 @@
 class Database {
 
     private static $dbHost = "localhost";
-    private static $dbName = "burger_code";
-    private static $dbUser = "root";
-    private static $dbUserPassword = "";
+    private static $dbName = "aurpixco_burger_code";
+    private static $dbUser = "aurpixco_user";
+    private static $dbUserPassword = "5r>G?oF7<rAm";
 
     private static $connection = null;
 
