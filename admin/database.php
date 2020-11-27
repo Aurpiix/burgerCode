@@ -5,7 +5,7 @@ class Database {
     private static $dbHost = "localhost";
     private static $dbName = "aurpixco_burger_code";
     private static $dbUser = "aurpixco_user";
-    private static $dbUserPassword = "5r>G?oF7<rAm";
+    private static $dbUserPassword = "******";
 
     private static $connection = null;
 

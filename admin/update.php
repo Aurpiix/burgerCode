@@ -9,79 +9,79 @@
 
   if(!empty($_POST)) {
 
-      // $name             = checkInput($_POST["name"]);
-      // $description      = checkInput($_POST["description"]);
-      // $price            = checkInput($_POST["price"]);
-      // $category         = checkInput($_POST["category"]);
-      // $image            = checkInput($_FILES['image']['name']);
-      // $imagePath        = '../images/' . basename($image);
-      // $imageExtension   = pathinfo($imagePath, PATHINFO_EXTENSION);
-      // $isSuccess        = true;
+      $name             = checkInput($_POST["name"]);
+      $description      = checkInput($_POST["description"]);
+      $price            = checkInput($_POST["price"]);
+      $category         = checkInput($_POST["category"]);
+      $image            = checkInput($_FILES['image']['name']);
+      $imagePath        = '../images/' . basename($image);
+      $imageExtension   = pathinfo($imagePath, PATHINFO_EXTENSION);
+      $isSuccess        = true;
 
-      // if(empty($name)) {
-      //   $nameError = 'Ce champ ne peut pas être vide';
-      //   $isSuccess = false;
-      // }
-      // if(empty($description)) {
-      //   $descriptionError = 'Ce champ ne peut pas être vide';
-      //   $isSuccess = false;
-      // }
-      // if(empty($price)) {
-      //   $priceError = 'Ce champ ne peut pas être vide';
-      //   $isSuccess = false;
-      // }
-      // if(empty($category)) {
-      //   $categoryError = 'Ce champ ne peut pas être vide';
-      //   $isSuccess = false;
-      // }
-      // if(empty($image)) {
-      //   $isImageUpdated = false ;
-      // }
-      // else {
-      //   $isImageUpdated = true ;
-      //   $isUploadSuccess = true;
-      //   if($imageExtension != "jpg" && $imageExtension != "png" && $imageExtension != "jpeg" && $imageExtension != "gif") {
-      //     $imageError = "Les fichiers autorises sont: .jpg, .jpeg, .png, .gif";
-      //     $isUploadSuccess = false;
-      //   }
-      //   if(file_exists($imagePath)) {
-      //     $imageError = "Le fichier existe déjà";
-      //     $isUploadSuccess = false;
-      //   }
-      //   if($_FILES["image"]["size"] > 500000) {
-      //     $imageError = "Le fichier ne doit pas dépasser les 500KB";
-      //     $isUploadSuccess = false;
-      //   }
-      //   if($isUploadSuccess) {
-      //     if(!move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
-      //       $imageError = "Il y a eu une erreur lors de l'upload";
-      //       $isUploadSuccess = false;
-      //     }
-      //   }
-      // }
+      if(empty($name)) {
+        $nameError = 'Ce champ ne peut pas être vide';
+        $isSuccess = false;
+      }
+      if(empty($description)) {
+        $descriptionError = 'Ce champ ne peut pas être vide';
+        $isSuccess = false;
+      }
+      if(empty($price)) {
+        $priceError = 'Ce champ ne peut pas être vide';
+        $isSuccess = false;
+      }
+      if(empty($category)) {
+        $categoryError = 'Ce champ ne peut pas être vide';
+        $isSuccess = false;
+      }
+      if(empty($image)) {
+        $isImageUpdated = false ;
+      }
+      else {
+        $isImageUpdated = true ;
+        $isUploadSuccess = true;
+        if($imageExtension != "jpg" && $imageExtension != "png" && $imageExtension != "jpeg" && $imageExtension != "gif") {
+          $imageError = "Les fichiers autorises sont: .jpg, .jpeg, .png, .gif";
+          $isUploadSuccess = false;
+        }
+        if(file_exists($imagePath)) {
+          $imageError = "Le fichier existe déjà";
+          $isUploadSuccess = false;
+        }
+        if($_FILES["image"]["size"] > 500000) {
+          $imageError = "Le fichier ne doit pas dépasser les 500KB";
+          $isUploadSuccess = false;
+        }
+        if($isUploadSuccess) {
+          if(!move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
+            $imageError = "Il y a eu une erreur lors de l'upload";
+            $isUploadSuccess = false;
+          }
+        }
+      }
 
-      // if(($isSuccess && $isImageUpdated && $isUploadSuccess) || ($isSuccess && !$isImageUpdated)) {
-      //   $db = Database::connect();
-      //   if($isImageUpdated) {
-      //       $statement = $db->prepare("UPDATE items SET name = ?, description = ?, price = ?, category = ?, image = ? WHERE id = ?");
-      //       $statement->execute(array($name,$description,$price,$category,$image,$id));
-      //   }
-      //   else {
-      //       $statement = $db->prepare("UPDATE items SET name = ?, description = ?, price = ?, category = ? WHERE id = ?");
-      //       $statement->execute(array($name,$description,$price,$category,$id));
-      //   }
-      //   Database::disconnect();
-      //   header("Location: index.php");
-      // }
-      // else if($isImageUpdated && !$isUploadSuccess) {
-      //   $db = Database::connect();
-      //   $statement = $db->prepare("SELECT image FROM items WHERE id = ?");
-      //   $statement->execute(array($id));
-      //   $item = $statement->fetch();
-      //   $image = $item['image'];
-      //   Database::disconnect();
-      // }
-      header("Location: index.php");
+      if(($isSuccess && $isImageUpdated && $isUploadSuccess) || ($isSuccess && !$isImageUpdated)) {
+        $db = Database::connect();
+        if($isImageUpdated) {
+            $statement = $db->prepare("UPDATE items SET name = ?, description = ?, price = ?, category = ?, image = ? WHERE id = ?");
+            $statement->execute(array($name,$description,$price,$category,$image,$id));
+        }
+        else {
+            $statement = $db->prepare("UPDATE items SET name = ?, description = ?, price = ?, category = ? WHERE id = ?");
+            $statement->execute(array($name,$description,$price,$category,$id));
+        }
+        Database::disconnect();
+        header("Location: index.php");
+      }
+      else if($isImageUpdated && !$isUploadSuccess) {
+        $db = Database::connect();
+        $statement = $db->prepare("SELECT image FROM items WHERE id = ?");
+        $statement->execute(array($id));
+        $item = $statement->fetch();
+        $image = $item['image'];
+        Database::disconnect();
+      }
+
   }
   else {
     $db = Database::connect();
